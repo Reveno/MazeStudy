@@ -1,0 +1,30 @@
+# Unity
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+*.csproj
+*.sln
+*.suo
+*.user
+*.pidb
+*.booproj
+*.unityproj
+.vs/
+.vscode/
+.idea/
+
+# Готові збірки (великі файли)
+/Build/
+/BuildLinux/
+/Builds/
+
+# Службові файли
+*.log
+Thumbs.db
+.DS_Store
+
+# Службова позначка пакетного експерименту
+/Results/done.txt
