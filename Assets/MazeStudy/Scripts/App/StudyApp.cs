@@ -24,7 +24,7 @@ namespace MazeStudy
         Dictionary<string, double> met; double genMs;
         // права панель вкладки «Генерація»: 0 – метрики й опис, 1 – псевдокод із поточним рядком, 2 – код C# (Generators.cs)
         int rightTab = 1; Trace trace; bool traceSame = true; Vector2 srcScroll; string[] srcBlocks;
-        Font codeFont; GUIStyle codeSt, srcSt, numSt, segSt, segSel, logSt;
+        Font codeFont; GUIStyle codeSt, srcSt, numSt, segSt, segSel, segXsSt, segXs, logSt;
         const int TraceMaxSize = 50; // журнал виконання ведеться для сіток до 50×50 (далі подій надто багато)
         float PanelW => rightTab == 0 ? 298 : 452;
 
@@ -108,6 +108,8 @@ namespace MazeStudy
             logSt = new GUIStyle(S(12, Ink)) { wordWrap = false, richText = false, clipping = TextClipping.Clip };
             numSt = new GUIStyle(S(11, Muted)) { alignment = TextAnchor.UpperRight, wordWrap = false };
             segSt = new GUIStyle(tabStyle) { fontSize = 13, padding = new RectOffset(2, 2, 3, 3) }; segSel = new GUIStyle(tabSel) { fontSize = 13, padding = new RectOffset(2, 2, 3, 3) };
+            // кнопки розміру на «Генерації»: п'ять в один ряд шириною 300, тому шрифт трохи менший
+            segXsSt = new GUIStyle(segSt) { fontSize = 12, padding = new RectOffset(0, 0, 3, 3) }; segXs = new GUIStyle(segSel) { fontSize = 12, padding = new RectOffset(0, 0, 3, 3) };
             field = new GUIStyle(S(15, Ink)) { alignment = TextAnchor.MiddleCenter, normal = { background = T(Color.white), textColor = Ink }, focused = { background = T(Color.white), textColor = Ink }, border = new RectOffset(1, 1, 1, 1) };
         }
 
@@ -186,7 +188,7 @@ namespace MazeStudy
                 if (Btn(new Rect(x, y + i * 31, 300, 28), $"{i + 1}. {Generators.All[i].name}", i == algo) && i != algo) { algo = i; hasMaze = false; srcScroll = Vector2.zero; }
             y += Generators.All.Length * 31 + 8;
             GUI.Label(new Rect(x, y, 300, 22), "Розмір лабіринту", h2); y += 26;
-            for (int i = 0; i < Sizes.Length; i++) if (Btn(new Rect(x + i * 61, y, 57, 28), Sizes[i].ToString(), i == sizeIdx) && i != sizeIdx) { sizeIdx = i; hasMaze = false; }
+            for (int i = 0; i < Sizes.Length; i++) if (GUI.Button(new Rect(x + i * 60, y, 59, 28), Sz(Sizes[i]), i == sizeIdx ? segXs : segXsSt) && i != sizeIdx) { sizeIdx = i; hasMaze = false; }
             y += 38;
             if (GUI.Button(new Rect(x, y, 300, 40), "▶  Згенерувати (новий seed)", btnSel)) GenerateNew();
             y += 48;
